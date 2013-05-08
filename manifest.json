@@ -1,0 +1,10 @@
+{
+  "name": "Play with mplayer",
+  "description": "Play youtube videos with mplayer.",
+  "version": "0.1",
+  "permissions": ["contextMenus"],
+  "background": {
+    "scripts": ["youtube-mpv.client.js"]
+  },
+  "manifest_version": 2
+}
