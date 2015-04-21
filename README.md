@@ -20,7 +20,7 @@ Chrome extension that adds context menu option to play youtube videos with mpv.
 
 ## Usage
 
-1. Navigate to sript's directory.
+1. Navigate to script's directory.
 2. Run `python ytdl-server.py`.
 
 ## Configuration
