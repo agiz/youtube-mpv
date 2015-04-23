@@ -6,7 +6,7 @@ Chrome extension that adds context menu option to play youtube videos with mpv.
 
 1. Chrome like browser.
 2. python
-3. [youtube\_dl module](http://rg3.github.io/youtube-dl/)
+3. [youtube\_dl module](http://rg3.github.io/youtube-dl)
 4. [mpv](http://mpv.io) or similar
 
 ## Installation
@@ -21,7 +21,7 @@ Chrome extension that adds context menu option to play youtube videos with mpv.
 ## Usage
 
 1. Navigate to script's directory.
-2. Run `python ytdl-server.py`.
+2. Run `python ytdl_server.py`.
 
 ## Configuration
 
@@ -30,7 +30,7 @@ Chrome extension that adds context menu option to play youtube videos with mpv.
 Modify `ytdl_config.py` file.
 
 General (mpv) player options should be set (usually) in
-`/.config/mpv/config`. Specific options like provided
+`~/.config/mpv/config`. Specific options like provided
 `--no-terminal` should be put in `OPTS` variable and
 separated with space ie: `--no-terminal --screen 1`.
 
