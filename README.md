@@ -16,7 +16,7 @@ Chrome extension that adds context menu option to play youtube videos with mpv.
 1. chrome://extensions/
 2. tick Developer mode
 3. Load unpacked extension...
-4. Choose root directory of this project.
+4. Choose chrome directory of this project.
 
 ## Usage
 
