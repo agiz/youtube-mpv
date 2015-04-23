@@ -9,7 +9,7 @@
   "version": "0.2",
   "permissions": ["contextMenus"],
   "background": {
-    "scripts": ["ytdl_config.py", "ytdl.client.js"]
+    "scripts": ["ytdl_config.py", "ytdl_client.js"]
   },
   "manifest_version": 2
 }
