@@ -43,7 +43,7 @@ supported, extracts video url and starts player.
 
 ## Credits
 
-[agiz](https://github.com/agiz), [dcrystalj](https://github.com/dcrystalj)
+[agiz](https://github.com/agiz), [dcrystalj](https://github.com/dcrystalj), [ihavenoface](https://github.com/ihavenoface)
 
 ## License
 
