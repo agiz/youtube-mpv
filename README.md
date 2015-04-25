@@ -1,11 +1,11 @@
 # ytdl server
 
-Chrome extension that adds context menu option to play youtube videos with mpv.
+Chrome extension and Firefox add-on that adds context menu option to play youtube videos with mpv (or other external player).
 
 ## Requirements
 
-1. Chrome like browser.
-2. python
+1. Chrome like/Firefox browser.
+2. python2 or python3
 3. [youtube\_dl module](http://rg3.github.io/youtube-dl)
 4. [mpv](http://mpv.io) or similar
 
