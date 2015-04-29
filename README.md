@@ -47,4 +47,4 @@ supported, extracts video url and starts player.
 
 ## License
 
-TODO: Write license
+[GPLv2](https://github.com/agiz/youtube-mpv/blob/master/LICENSE)
