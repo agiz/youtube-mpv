@@ -1,5 +1,21 @@
-import os, subprocess, sys, urlparse
-import BaseHTTPServer, SimpleHTTPServer, SocketServer
+#!/usr/bin/env python
+from __future__ import print_function
+
+import os
+import subprocess
+import sys
+
+# http://stackoverflow.com/a/1660073/2257038
+if sys.version_info.major == 2:
+    from BaseHTTPServer import HTTPServer as HTTPServer
+    from SimpleHTTPServer import SimpleHTTPRequestHandler as RequestHandler
+    import SocketServer
+    import urlparse as parse
+else:
+    from http.server import HTTPServer
+    from http.server import SimpleHTTPRequestHandler as RequestHandler
+    import socketserver as SocketServer
+    from urllib import parse
 
 import youtube_dl
 """Check https://github.com/rg3/youtube-dl/"""
@@ -19,7 +35,7 @@ y = youtube_dl.YoutubeDL({
 })
 """youtube_dl handle"""
 
-class MyHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class MyHandler(RequestHandler):
 
   def match_id(self, url):
     data = False
@@ -30,7 +46,7 @@ class MyHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     return data
 
   def do_GET(self):
-    parsedParams = urlparse.urlparse(self.path)
+    parsedParams = parse.urlparse(self.path)
     parsed_query = urlparse.parse_qs(parsedParams.query)
     yt_url = parsed_query['i'][0]
 
@@ -53,7 +69,7 @@ class MyHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
           video_url_lo = format_id['url']
       if video_url_hi == '':
         if video_url_lo == '':
-          print 'Unknown format. Cannot play video from:', yt_url
+          print('Unknown format. Cannot play video from:', yt_url)
           return self.send_response(204)
         video_url = video_url_lo
       else:
@@ -81,7 +97,7 @@ class MyHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     return
 
 def serve(host, port, HandlerClass=MyHandler,
-        ServerClass=BaseHTTPServer.HTTPServer):
+        ServerClass=HTTPServer):
   protocol = 'HTTP/1.0'
   if len(sys.argv) > 1:
     arg = sys.argv[1]
@@ -100,11 +116,11 @@ def serve(host, port, HandlerClass=MyHandler,
   httpd = ThreadedHTTPServer(server_address, HandlerClass)
 
   sa = httpd.socket.getsockname()
-  print 'Serving HTTP on', sa[0], 'port', sa[1], '...'
+  print('Serving HTTP on', sa[0], 'port', sa[1], '...')
   httpd.serve_forever()
 
 class ThreadedHTTPServer(SocketServer.ThreadingMixIn,
-        BaseHTTPServer.HTTPServer):
+        HTTPServer):
   """This class allows to handle requests in separated threads.
     No further content needed, don't touch this."""
 
