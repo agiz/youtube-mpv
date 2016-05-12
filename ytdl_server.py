@@ -17,14 +17,14 @@ else:
     import socketserver as SocketServer
     from urllib import parse
 
+# Check https://github.com/rg3/youtube-dl/
 import youtube_dl
-"""Check https://github.com/rg3/youtube-dl/"""
 
+# PORT, HOST, PLAYER and OPTS variables
 import ytdl_config
-"""PORT, HOST, PLAYER and OPTS variables."""
 
+# used for redirecting stdout, stderr
 FNULL = open(os.devnull, 'w')
-"""/dev/null"""
 
 y = youtube_dl.YoutubeDL({
     'quiet': True,
@@ -33,10 +33,12 @@ y = youtube_dl.YoutubeDL({
     'age_limit': None,
     'forcejson': True
     })
-"""youtube_dl handle"""
 
 
 class MyHandler(RequestHandler):
+    """
+    Perform video lookup using youtube-dl
+    """
 
     def match_id(self, url):
         data = False
@@ -47,6 +49,10 @@ class MyHandler(RequestHandler):
         return data
 
     def do_GET(self):
+        """
+        Given a request, grab the URI for the video, and then play it through
+        the user's specified PLAYER
+        """
         parsedParams = parse.urlparse(self.path)
         parsed_query = parse.parse_qs(parsedParams.query)
         yt_url = parsed_query['i'][0]
@@ -57,10 +63,10 @@ class MyHandler(RequestHandler):
 
         video_url = ''
         if 'url' in data:
-            """Non-youtube video?"""
+            # Non-youtube video?
             video_url = data['url']
         else:
-            """youtube video"""
+            # youtube video
             video_url_lo = ''
             video_url_hi = ''
             for format_id in data['formats']:
@@ -77,14 +83,14 @@ class MyHandler(RequestHandler):
             else:
                 video_url = video_url_hi
 
+        # Get additional options
         command = list(map(str, ytdl_config.OPTS.split(' ')))
-        """Get additional options."""
 
+        # Prepend default player
         command.insert(0, ytdl_config.PLAYER)
-        """Prepend default player."""
 
+        # Append video url
         command.append(video_url)
-        """Append video url."""
 
         subprocess.Popen(
                 command,
@@ -95,7 +101,9 @@ class MyHandler(RequestHandler):
         self.send_response(204)
 
     def log_message(self, format, *args):
-        """Disable debug output."""
+        """
+        Disable debug output.
+        """
         return
 
 
@@ -125,8 +133,10 @@ def serve(host, port, HandlerClass=MyHandler,
 
 class ThreadedHTTPServer(SocketServer.ThreadingMixIn,
                          HTTPServer):
-    """This class allows to handle requests in separated threads.
-    No further content needed, don't touch this."""
+    """
+    This class allows to handle requests in separated threads. No further
+    content needed, don't touch this.
+    """
 
 if __name__ == "__main__":
     serve(ytdl_config.HOST, ytdl_config.PORT)
