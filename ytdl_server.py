@@ -47,7 +47,7 @@ class MyHandler(RequestHandler):
 
   def do_GET(self):
     parsedParams = parse.urlparse(self.path)
-    parsed_query = urlparse.parse_qs(parsedParams.query)
+    parsed_query = parse.parse_qs(parsedParams.query)
     yt_url = parsed_query['i'][0]
 
     data = self.match_id(yt_url)
