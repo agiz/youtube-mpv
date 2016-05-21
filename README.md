@@ -15,7 +15,7 @@ Chrome extension and Firefox add-on that adds context menu option to play youtub
 #### Ubutnu
 ```./install-ubuntu.sh```
 
-make sure you don't run this script as rood (without sudo)
+make sure you don't run this script as root (without sudo)
 
 
 ### Client side (browser):

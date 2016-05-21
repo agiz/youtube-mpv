@@ -16,7 +16,8 @@ sudo cp daemon /etc/init.d/youtube-mpv
 sudo chmod +x /etc/init.d/youtube-mpv
 
 #run service
-#!!warning service shoudl not be started as:
+#!!warning service should not be started as:
 #`service youtube-mpv start`
 #instead you should manually run as full path
 sudo /etc/init.d/youtube-mpv start
+
