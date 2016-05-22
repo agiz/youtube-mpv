@@ -1,5 +1,15 @@
 #! /bin/sh
 
+### BEGIN INIT INFO
+# Provides:          video link catcher
+# Required-Start:    $local_fs $network
+# Required-Stop:     $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: video link catcher
+# Description:       video link catcher usin python server and mpv player
+### END INIT INFO
+
 NAME="youtube-mpv"
 DESC="Python server which can play youtube links"
 
@@ -8,7 +18,6 @@ DAEMON_OPTS="/opt/youtube-mpv/ytdl_server.py"
 
 PIDFILE="/var/run/${NAME}.pid"
 LOGFILE="/var/log/${NAME}.log"
-
 
 START_OPTS="--start --chuid USERNAME --background --make-pidfile --pidfile ${PIDFILE} --exec ${DAEMON} -- ${DAEMON_OPTS}"
 STOP_OPTS="--stop --pidfile ${PIDFILE}"
@@ -20,7 +29,7 @@ set -e
 case "$1" in
 start)
 echo -n "Starting ${DESC}: "
-start-stop-daemon $START_OPTS >> $LOGFILE
+DISPLAY=:0 start-stop-daemon $START_OPTS >> $LOGFILE
 echo "$NAME."
 ;;
 stop)
