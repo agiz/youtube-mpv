@@ -21,3 +21,5 @@ sudo chmod +x /etc/init.d/youtube-mpv
 #instead you should manually run as full path
 sudo /etc/init.d/youtube-mpv start
 
+#run daemon at startup
+sudo systemctl enable youtube-mpv
