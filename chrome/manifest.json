@@ -6,7 +6,9 @@
       "48": "icons/mpv-logo-48.png",
       "128": "icons/mpv-logo-128.png"
    },
-  "version": "0.2",
+  "content_security_policy": "script-src 'self' http://127.0.0.1:9000; object-src 'self'",
+  "options_page": "history.html",
+  "version": "0.3",
   "permissions": ["contextMenus"],
   "background": {
     "scripts": ["ytdl_config.py", "ytdl_client.js"]
