@@ -1,0 +1,4 @@
+Logic to delete all/chosen videos.
+Be able to choose playback quality (in a drop down menu)
+Hijack video url on click event to auto-play without opening a site
+
