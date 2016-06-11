@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang=en>
+  <meta charset=utf-8>
+  <title>Options</title>
+  <!-- <link rel=stylesheet href=style.css> -->
+
+  <a href=history.html>Video history</a>
+  <br />
+  <hr />
+
+  <span class="title"><label for="linksfoundindicator">Address bar indicator</label></span>
+  <input type="checkbox" id="linksfoundindicator" /><br />
+  <span class="tip">Enabling this will cause an indicator icon to appear in every page's address bar where the extension found torrent links matching the filters defined in &quot;Link Catching&quot;</span>
+  <span class="title"><label for="catchfrompage">Clicks on links</label></span>
+  <input type="checkbox" id="catchfrompage" /><br />
+  <span class="tip">Enable this to intercept links from pages where torrent links were found and automatically send them to the WebUI instead of downloading them locally (can be overridden by holding CTRL/ALT/SHIFT/META (CMD)).</span><br />
+  <div style="float:left;"><select id="linkmatches"></select></div>
+  <div style="position:relative; float:left;"><button id="addfilterbtn">+</button><br />
+    <button id="delfilterbtn">-</button></div><br style="clear:both;" />
+  <span class="tip">Creating new filters is easy; just look at a sample link that you want matched, remove parts of it as long as it still resembles a link scheme specific to your torrent site, then follow these rules:<br />
+    - escape (put a backslash in front of) every: &quot;.&quot;, &quot;/&quot;, &quot;?&quot;<br/>
+    - replace dynamic parts: (&quot;\d+&quot; matches any number, e.g. torrent ID, &quot;.+?&quot; matches any character, &quot;[:alpha:]&quot; matches any string containing letters or numbers)<br />
+    <a target="_blank" href="http://www.regular-expressions.info/reference.html">more detailed information</a></span>
+
+  <script src=options.js></script>
+</html>

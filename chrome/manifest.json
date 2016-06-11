@@ -1,15 +1,27 @@
 {
   "name": "Play with mpv",
+  "short_name": "MPV",
   "description": "Play youtube videos with mpv.",
-   "icons": {
-      "16": "icons/mpv-logo-16.png",
-      "48": "icons/mpv-logo-48.png",
-      "128": "icons/mpv-logo-128.png"
-   },
-  "version": "0.2",
-  "permissions": ["contextMenus"],
+  "icons": {
+    "16": "icons/mpv-logo-16.png",
+    "48": "icons/mpv-logo-48.png",
+    "128": "icons/mpv-logo-128.png"
+  },
+  "page_action": {
+    "default_icon": "icons/mpv-logo-16.png"
+  },
+  "version": "0.4",
+  "permissions": ["*://*/*", "contextMenus", "notifications", "tabs"],
   "background": {
     "scripts": ["ytdl_config.py", "ytdl_client.js"]
   },
+  "content_security_policy": "script-src 'self' http://127.0.0.1:9000; object-src 'self'",
+  "options_page": "options.html",
+  "content_scripts": [{
+    "matches": ["*://*/*"],
+    "js": ["ytdl_content.js"],
+    "run_at": "document_end",
+    "all_frames": true
+  }],
   "manifest_version": 2
 }
