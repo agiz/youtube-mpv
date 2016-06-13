@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
+import json
 import os
 import subprocess
 import sys
@@ -22,6 +23,8 @@ import youtube_dl
 
 # PORT, HOST, PLAYER and OPTS variables
 import ytdl_config
+
+from ytdl_db import VideoDB
 
 # used for redirecting stdout, stderr
 FNULL = open(os.devnull, 'w')
@@ -55,26 +58,41 @@ class MyHandler(RequestHandler):
         """
         parsedParams = parse.urlparse(self.path)
         parsed_query = parse.parse_qs(parsedParams.query)
-        yt_url = parsed_query['i'][0]
+
+        if 'g' in parsed_query:
+            return self.wfile.write(
+                'var video_arr = ' + json.dumps(vdb.get_videos()) + ';' +
+                'var format_arr = ' + json.dumps(vdb.get_formats()) + ';' +
+                'var video_format_arr = ' + json.dumps(vdb.get_videos_formats()) + ';'
+                )
+        elif 'i' in parsed_query:
+            yt_url = parsed_query['i'][0]
+        else:
+            return self.send_response(204)
 
         data = self.match_id(yt_url)
         if not data:
             return self.send_response(204)
 
+        format = ''
         video_url = ''
         if 'url' in data:
             # Non-youtube video?
             video_url = data['url']
-        else:
+            if 'format' in data:
+                format = data['format']
+        elif 'formats' in data:
             # youtube video
             video_url_lo = ''
             video_url_hi = ''
             for format_id in data['formats']:
                 if 'format_id' in format_id and format_id['format_id'] == '22':
                     video_url_hi = format_id['url']
+                    format = format_id['format']
+                    break
                 elif 'format_id' in format_id and format_id['format_id'] == '18':
                     video_url_lo = format_id['url']
-
+                    format = format_id['format']
             if video_url_hi == '':
                 if video_url_lo == '':
                     print('Unknown format. Cannot play video from:', yt_url)
@@ -82,6 +100,8 @@ class MyHandler(RequestHandler):
                 video_url = video_url_lo
             else:
                 video_url = video_url_hi
+        else:
+            return self.send_response(204)
 
         # Get additional options
         command = list(map(str, ytdl_config.OPTS.split(' ')))
@@ -97,6 +117,33 @@ class MyHandler(RequestHandler):
                 stdout=FNULL,
                 stderr=FNULL
                 )
+
+        duration = -1
+        title = ''
+        description = ''
+        thumbnail = ''
+        extractor = ''
+        video_id = ''
+        webpage_url = ''
+
+        if 'duration' in data:
+          duration = data['duration']
+        if 'title' in data:
+          title = data['title']
+        if 'description' in data:
+          description = data['description']
+        if 'thumbnail' in data:
+          thumbnail = data['thumbnail']
+        if 'extractor' in data:
+          extractor = data['extractor']
+          extractor = extractor.lower()
+        if 'id' in data:
+          video_id = data['id']
+        if 'webpage_url' in data:
+          webpage_url = data['webpage_url']
+
+        vdb.insert(extractor, video_id, webpage_url, title, description,
+                   thumbnail, duration, format)
 
         self.send_response(204)
 
@@ -139,4 +186,6 @@ class ThreadedHTTPServer(SocketServer.ThreadingMixIn,
     """
 
 if __name__ == "__main__":
+    vdb = VideoDB()
+    vdb.init_database()
     serve(ytdl_config.HOST, ytdl_config.PORT)
