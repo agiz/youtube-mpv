@@ -1,17 +1,24 @@
 #! /bin/sh
 
+me=`whoami`
+install_path=/opt/youtube-mpv/
+
 #install dependencies
 pip3 install youtube_dl
 
 #install server
 sudo mkdir /opt/youtube-mpv
-sudo cp ytdl_server.py /opt/youtube-mpv/
-sudo cp ytdl_config.py /opt/youtube-mpv/
+sudo cp ytdl_server.py $install_path
+sudo cp ytdl_config.py $install_path
+sudo cp ytdl_db.py $install_path
+sudo cp history.db $install_path
+sudo chown -R $me:$me $install_path 
+sudo chmod -R 755 $install_path
 
 #install DAEMON
 
 #replace with your user
-sed -i -e 's/--chuid USERNAME/--chuid '`whoami`'/g' daemon
+sed -i -e 's/--chuid USERNAME/--chuid '$me'/g' daemon
 sudo cp daemon /etc/init.d/youtube-mpv
 sudo chmod +x /etc/init.d/youtube-mpv
 

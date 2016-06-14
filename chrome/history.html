@@ -1,43 +1,82 @@
 <!doctype html>
 <html lang=en>
+
+<head>
+
   <meta charset=utf-8>
+
   <title>Video history</title>
+
   <link rel=stylesheet href=style.css>
 
-  <h1>Video history</h1>
-  <label>
-    <input type=email placeholder=search required>
-    <button>Search videos</button>
-  </label>
+  <script src=ytdl_config.py></script>
+  <script src=vue/vue.min.js></script>
 
-  <div id="editing-controls">
-    <button id=clear-browsing-data i18n-content=clearAllHistory>Clear video history</button>
-    <button id=remove-selected disabled="" i18n-content=removeSelected>Remove selected items</button>
-  </div>
+</head>
 
-  <div id="results-display">
-    <!-- <h3 class="day">Thursday, Jun 9, 2016</h3> -->
-    <!-- <ol class="day&#45;results"> -->
-      <!-- <li class="entry"> -->
-      <!--   <div class="entry&#45;box&#45;container"> -->
-      <!--     <div class="entry&#45;box" for="checkbox&#45;67"> -->
-      <!--       <input type="checkbox" id="checkbox&#45;67" aria&#45;label="10:11 AM  youtube&#45;mpv/ytdl_server.py at master · agiz/youtube&#45;mpv github.com" focus&#45;type="checkbox" tabindex="&#45;1"> -->
-      <!--       <span class="time">10:11 AM</span> -->
-      <!--       <button class="bookmark&#45;section custom&#45;appearance"></button> -->
-      <!--       <!&#45;&#45; <div class="visit&#38;#45;entry" style="background&#38;#45;image: &#38;#45;webkit&#38;#45;image&#38;#45;set(url(chrome://favicon/size/16@1x/https://github.com/agiz/youtube&#38;#45;mpv) 1x, url(chrome://favicon/size/16@2x/https://github.com/agiz/youtube&#38;#45;mpv) 2x);"> &#45;&#45;> -->
-      <!--       <div class="visit&#45;entry" style="background&#45;image: &#45;webkit&#45;image&#45;set(url() 1x, url() 2x);"> -->
-      <!--         <div class="title"> -->
-      <!--           <a href="https://github.com/agiz/youtube&#45;mpv" id="id&#45;67" target="_top" title="youtube&#45;mpv/ytdl_server.py at master · agiz/youtube&#45;mpv" focus&#45;type="title" tabindex="&#45;1">youtube&#45;mpv/ytdl_server.py at master · agiz/youtube&#45;mpv</a> -->
-      <!--         </div> -->
-      <!--         <div class="domain">github.com</div> -->
-      <!--       </div> -->
-      <!--       <button class="drop&#45;down custom&#45;appearance menu&#45;button" value="Open action menu" title="Actions" menu="#action&#45;menu" aria&#45;haspopup="true" focus&#45;type="menu" tabindex="&#45;1"></button> -->
-      <!--     </div> -->
-      <!--   </div> -->
-      <!-- </li> -->
-    <!-- </ol> -->
-  </div>
+<body>
+<div id="history">
 
-  <script src=http://127.0.0.1:9000/?g=all></script>
-  <script src=history.js></script>
+    <h1>Video history</h1>
+
+    <button
+        @click="setTab('detail')"
+    >
+        Detail view
+    </button>
+
+    <button
+        @click="setTab('thumbnail')"
+    >
+        Thumbnail view
+    </button>
+
+    <br>
+    <br>
+
+    <label>
+        <input type=text placeholder=search v-model="searchQuery">
+    </label>
+
+    <br>
+    <br>
+
+    <div id="editing-controls">
+        <button
+            @click="clearAll"
+            id=clear-browsing-data
+        >
+            Clear video history
+        </button>
+        <button
+            @click="clearChecked"
+            id=remove-selected
+        >
+            Remove selected items
+        </button>
+
+    </div>
+
+
+
+    <ol class=day-results>
+        <li v-for="video in videos | filterBy searchQuery | orderBy sortKey sortOrders[sortKey]"
+            class="entry">
+
+            <component
+                :is="currentTab"
+                :video="video"
+                :check.sync="checked"
+            >
+            </component>
+
+        </li>
+    </ol>
+
+
+    <script src=vue/components/detail.html></script>
+    <script src=vue/components/thumbnail.html></script>
+    <script src=vue/history.js></script>
+
+</body>
 </html>

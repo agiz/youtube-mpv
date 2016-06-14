@@ -49,7 +49,7 @@ input[type='checkbox'], input[type='radio'] {
 .entry .time {
   min-width: 53px;
   color: rgb(151, 156, 160);
-  max-width: 90px;
+  max-width: 140px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

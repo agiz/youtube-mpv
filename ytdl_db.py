@@ -5,7 +5,7 @@ import time
 class VideoDB(object):
 
   def init_database(self):
-    print 'Initializing database ...'
+    print('Initializing database ...')
 
     self.con = sqlite3.connect(
       os.path.join(os.path.dirname(os.path.realpath(__file__)), 'history.db'),
