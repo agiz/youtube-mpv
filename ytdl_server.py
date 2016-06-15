@@ -11,11 +11,13 @@ if sys.version_info.major == 2:
     from SimpleHTTPServer import SimpleHTTPRequestHandler as RequestHandler
     import SocketServer
     import urlparse as parse
+    from distutils.spawn import find_executable as which
 else:
     from http.server import HTTPServer
     from http.server import SimpleHTTPRequestHandler as RequestHandler
     import socketserver as SocketServer
     from urllib import parse
+    from shutil import which
 
 # Check https://github.com/rg3/youtube-dl/
 import youtube_dl
@@ -34,6 +36,13 @@ y = youtube_dl.YoutubeDL({
     'forcejson': True
     })
 
+def report_error(summary, message=""):
+    print(summary + ': ' + message)
+    # http://stackoverflow.com/a/12611523/2257038
+    if not ytdl_config.NOTIFY_COMMAND == '' and which(ytdl_config.NOTIFY_COMMAND):
+        subprocess.Popen([ytdl_config.NOTIFY_COMMAND, "YoutubeDL mpv: " + summary, message])
+    else:
+        print("Error: NOTIFY_COMMAND is unset, or does not exist")
 
 class MyHandler(RequestHandler):
     """
@@ -59,6 +68,7 @@ class MyHandler(RequestHandler):
 
         data = self.match_id(yt_url)
         if not data:
+            report_error("No file found", "No file found for " + yt_url)
             return self.send_response(400)
 
         video_url = ''
@@ -77,7 +87,7 @@ class MyHandler(RequestHandler):
 
             if video_url_hi == '':
                 if video_url_lo == '':
-                    print('Unknown format. Cannot play video from:', yt_url)
+                    report_error('Unknown format', 'Cannot play video from' + yt_url)
                     return self.send_response(400)
                 video_url = video_url_lo
             else:
