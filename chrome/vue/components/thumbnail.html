@@ -1,25 +1,39 @@
 var thumbnail_template = `
-<div class="entry-box-container">
-   <div class="entry-box" for="checkbox-{{video.id}}">
 
-     <input
-        type="checkbox"
-        id="{{video.id}}"
-        value="{{video.id}}"
-        type="checkbox"
-        v-model="check"
-     >
-     <span class="time">{{ $root.humanDate(video.time) }}</span>
-     <!-- <button class="bookmark-section custom-appearance"></button> -->
-     <div>slikca </div>
-     <div class="visit-entry" style="background-image: -webkit-image-set(url() 1x, url() 2x);">
-       <div class="title">
-         <a href="{{video.long_url}}" target="_top">
-             {{ video.title }} - {{ video.short_url }}
-         </a>
-       </div>
-       <div class="domain">{{ video.src }}</div>
-     </div>
+<div class="block">
+<input
+    type="checkbox"
+    class="thumbnail-checkbox"
+    id="{{video.id}}"
+    value="{{video.id}}"
+    type="checkbox"
+    v-model="check"
+>
+
+<div class="thumbnail-video">
+    <div class="image">
+    <a aria-hidden="true" href="{{video.long_url}}" class="yt-uix-sessionlink spf-link ">
+         <div class="yt-thumb video-thumb">
+             <span class="yt-thumb-simple">
+                 <img height="110" width="196" alt="" src="{{video.thumb}}">
+            </span>
+        </div>
+        <span class="video-time">{{video.length}}</span>
+    </a>
     </div>
-</div>
+
+    <div class="description">
+        <h3 class="yt-lockup-title ">
+            <a href="/watch?v=2a4Uxdy9TQY">
+                {{video.title}}
+            </a>
+            <br>
+            <span> {{video.time}}</span>
+        </h3>
+        <div class="yt-lockup-byline">
+            <div class="thumbnail-description">
+                {{ video.description | html }}
+            </div>
+        </div>
+    </div>
 `

@@ -4,6 +4,10 @@ h3 {
   margin-bottom: 0.8em;
 }
 
+a {
+    text-decoration: none;
+}
+
 .entry {
   list-style: none;
   margin: 0;
@@ -46,13 +50,75 @@ input[type='checkbox'], input[type='radio'] {
   outline: none;
 }
 
+.absolute {
+    position: absolute;
+}
+
+.yt-lockup-dismissable .yt-uix-tile {
+    position: relative;
+}
+
+.video-time {
+    position: absolute;
+    bottom: 7px;
+    right: 4px;
+    background: rgb(48, 57, 66);
+    color: white;
+    padding: 3px;
+}
+
+.entry {
+    /*height: 120px;*/
+}
+
+.image {
+    float: left;
+    position: absolute;
+}
+
+.thumbnail-video {
+    margin-left: 20px;
+}
+
+.description {
+    margin-left: 200px;
+    float: left;
+}
+
+.thumbnail-checkbox {
+    float: left;
+    height: 100px !important;
+}
+
+.thumbnail-description {
+    max-height: 40px;
+    overflow: scroll;
+}
+
+.block {
+    height: 120px;
+}
+
 .entry .time {
-  min-width: 53px;
+  min-width: 140px;
   color: rgb(151, 156, 160);
   max-width: 140px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+}
+
+
+
+.left {
+    float: left;
+}
+
+.thumbnail {
+    max-width: 100px;
+    max-height: 100px;
+    margin-left: 10px;
 }
 
 .entry .bookmark-section {

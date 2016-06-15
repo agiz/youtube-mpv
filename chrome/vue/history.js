@@ -18,9 +18,9 @@ window.onload = function () {
 vm = new Vue({
     el: '#history',
     data: {
-        api: 'http://' + HOST + ':' + 'PORT' + '/?g=all',
+        api: 'http://' + HOST + ':' + PORT + '/?g=all',
         videos: [],
-        currentTab: 'detail',
+        currentTab: VIEW,
         searchQuery: '',
         sortKey: '',
         sortOrders: {},
@@ -47,27 +47,57 @@ vm = new Vue({
           this.sortOrders[key] = this.sortOrders[key] * -1
         },
 
-        vid2Obj(id, time, src, short_url, long_url, title, description, thumb, dim) {
+        vid2Obj(id, time, src, short_url, long_url, title, description, thumb, length) {
             return {
-                id, time, src, short_url, long_url, title, description, thumb, dim
+                id,
+                'time': this.humanDate(time),
+                src,
+                short_url,
+                long_url,
+                title,
+                description,
+                thumb,
+                'length': this.secToMMSS(length)
             };
         },
 
         getVideos() {
-            var arr = [[3, 1465857739898.306, "youtube", "jU7GNQaOBhc", "https://www.youtube.com/watch?v=jU7GNQaOBhc", "MPP - Ps 139", "", "https://i.ytimg.com/vi/jU7GNQaOBhc/hqdefault.jpg", 182],
-            [2, 1465855254479.9768, "youtube", "pidW3I9GQa8", "https://www.youtube.com/watch?v=pidW3I9GQa8", "Pi", "https://i.ytimg.com/vi/pidW3I9GQa8/hqdefault.jpg", 557],
-            [1, 1465854452886.2075, "youtube", "scWdXPibXZg", "https://www.youtube.com/watch?v=scWdXPibXZg", "", "https://i.ytimg.com/vi/scWdXPibXZg/hqdefault.jpg", 448]]
-            for (a of arr) {
-                var video = this.vid2Obj(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7])
 
-                this.videos.push(video);
-            }
+            var el = document.createElement('script');
+            el.setAttribute('src', this.api);
+            document.head.appendChild(el);
+
+            el.onload = () => {
+                for (a of video_arr) {
+                    var video = this.vid2Obj(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8])
+
+                    this.videos.push(video);
+                }
+            };
+
+
+            // var arr = [[3, 1465857739898.306, "youtube", "jU7GNQaOBhc", "https://www.youtube.com/watch?v=jU7GNQaOBhc", "MPP - Ps 139", "", "https://i.ytimg.com/vi/jU7GNQaOBhc/hqdefault.jpg", 182],
+            // [2, 1465855254479.9768, "youtube", "pidW3I9GQa8", "https://www.youtube.com/watch?v=pidW3I9GQa8", "Pi", "https://i.ytimg.com/vi/pidW3I9GQa8/hqdefault.jpg", 557],
+            // [1, 1465854452886.2075, "youtube", "scWdXPibXZg", "https://www.youtube.com/watch?v=scWdXPibXZg", "", "https://i.ytimg.com/vi/scWdXPibXZg/hqdefault.jpg"
+            // , 448]];
+
+
+
+
+
+        },
+
+        secToMMSS(sec) {
+            var d = new Date();
+            d.setHours(0);
+            d.setMinutes(0);
+            d.setSeconds(0);
+            d = new Date(d.getTime() + sec*1000);
+            return d.toLocaleString('en-GB').split(' ')[1].substr(3);
         },
 
         clearAll() {
-            this.videos = this.videos.filter((x, i) => {
-                return i == null;
-            });
+            this.videos = []
         },
 
         clearChecked() {
