@@ -34,6 +34,12 @@ General (mpv) player options should be set (usually) in
 `--no-terminal` should be put in `OPTS` variable and
 separated with space ie: `--no-terminal --screen 1`.
 
+### Receive native notifications on errors
+
+Modify `ytdl_config.py` to set the `NOTIFY_COMMAND` to a command, such as
+`notify-send` on Linux to provide native notifications when a video cannot be
+found.
+
 ## How does it work
 
 Whenever 'Play with mpv' is selected in browser,
