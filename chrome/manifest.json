@@ -13,7 +13,12 @@
   "version": "0.4",
   "permissions": ["*://*/*", "contextMenus", "notifications", "tabs"],
   "background": {
-    "scripts": ["ytdl_config.py", "ytdl_client.js"]
+    "scripts": [
+        "ytdl_config.py",
+        "ytdl_client.js",
+        "vue/history.js",
+        "vue/vue.min.js"
+    ]
   },
   "content_security_policy": "script-src 'self' http://127.0.0.1:9000; object-src 'self'",
   "options_page": "options.html",

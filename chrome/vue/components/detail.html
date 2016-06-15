@@ -1,0 +1,25 @@
+var detail_template = `
+<div class="entry-box-container">
+   <div class="entry-box" for="checkbox-{{video.id}}">
+
+     <input
+        type="checkbox"
+        id="{{video.id}}"
+        value="{{video.id}}"
+        type="checkbox"
+        v-model="check"
+     >
+     <span class="time">{{ video.time }}</span>
+     <!-- <button class="bookmark-section custom-appearance"></button> -->
+     <div class="visit-entry" style="background-image: -webkit-image-set(url() 1x, url() 2x);">
+       <div class="title">
+         <a href="{{video.long_url}}" target="_top">
+             <span class="domain"> [{{video.length}}] </span>
+             {{ video.title }}
+         </a>
+       </div>
+       <div class="domain">{{ video.src }}</div>
+     </div>
+    </div>
+</div>
+`
