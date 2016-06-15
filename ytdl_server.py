@@ -59,7 +59,7 @@ class MyHandler(RequestHandler):
 
         data = self.match_id(yt_url)
         if not data:
-            return self.send_response(204)
+            return self.send_response(400)
 
         video_url = ''
         if 'url' in data:
@@ -78,7 +78,7 @@ class MyHandler(RequestHandler):
             if video_url_hi == '':
                 if video_url_lo == '':
                     print('Unknown format. Cannot play video from:', yt_url)
-                    return self.send_response(204)
+                    return self.send_response(400)
                 video_url = video_url_lo
             else:
                 video_url = video_url_hi
