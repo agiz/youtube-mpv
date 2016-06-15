@@ -34,6 +34,11 @@ y = youtube_dl.YoutubeDL({
     'forcejson': True
     })
 
+def report_error(summary, message=""):
+    print(summary + ': ' + message)
+    # TODO what if the command doesn't exist?
+    if not ytdl_config.NOTIFY_COMMAND == '':
+        subprocess.Popen([ytdl_config.NOTIFY_COMMAND, "YoutubeDL mpv: " + summary, message])
 
 class MyHandler(RequestHandler):
     """
@@ -59,6 +64,7 @@ class MyHandler(RequestHandler):
 
         data = self.match_id(yt_url)
         if not data:
+            report_error("No file found", "No file found for " + yt_url)
             return self.send_response(400)
 
         video_url = ''
@@ -77,7 +83,7 @@ class MyHandler(RequestHandler):
 
             if video_url_hi == '':
                 if video_url_lo == '':
-                    print('Unknown format. Cannot play video from:', yt_url)
+                    report_error('Unknown format', 'Cannot play video from' + yt_url)
                     return self.send_response(400)
                 video_url = video_url_lo
             else:
