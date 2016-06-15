@@ -11,11 +11,13 @@ if sys.version_info.major == 2:
     from SimpleHTTPServer import SimpleHTTPRequestHandler as RequestHandler
     import SocketServer
     import urlparse as parse
+    from distutils.spawn import find_executable as which
 else:
     from http.server import HTTPServer
     from http.server import SimpleHTTPRequestHandler as RequestHandler
     import socketserver as SocketServer
     from urllib import parse
+    from shutil import which
 
 # Check https://github.com/rg3/youtube-dl/
 import youtube_dl
@@ -36,9 +38,11 @@ y = youtube_dl.YoutubeDL({
 
 def report_error(summary, message=""):
     print(summary + ': ' + message)
-    # TODO what if the command doesn't exist?
-    if not ytdl_config.NOTIFY_COMMAND == '':
+    # http://stackoverflow.com/a/12611523/2257038
+    if not ytdl_config.NOTIFY_COMMAND == '' and which(ytdl_config.NOTIFY_COMMAND):
         subprocess.Popen([ytdl_config.NOTIFY_COMMAND, "YoutubeDL mpv: " + summary, message])
+    else:
+        print("Error: NOTIFY_COMMAND is unset, or does not exist")
 
 class MyHandler(RequestHandler):
     """
