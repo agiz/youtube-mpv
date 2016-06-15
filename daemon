@@ -19,7 +19,7 @@ DAEMON_OPTS="/opt/youtube-mpv/ytdl_server.py"
 PIDFILE="/var/run/${NAME}.pid"
 LOGFILE="/var/log/${NAME}.log"
 
-START_OPTS="--start --chuid USERNAME --background --make-pidfile --pidfile ${PIDFILE} --exec ${DAEMON} -- ${DAEMON_OPTS}"
+START_OPTS="--start --chuid dcrystalj --background --make-pidfile --pidfile ${PIDFILE} --exec ${DAEMON} -- ${DAEMON_OPTS}"
 STOP_OPTS="--stop --pidfile ${PIDFILE}"
 
 test -x $DAEMON || exit 0

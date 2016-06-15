@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang=en>
+
+<head>
+
+  <meta charset=utf-8>
+
+  <title>Video history</title>
+
+  <link rel=stylesheet href=style.css>
+
+  <script src=ytdl_config.py></script>
+  <script src=vue/vue.min.js></script>
+
+</head>
+
+<body>
+<div id="history">
+
+    <h1>Video history</h1>
+
+    <button
+        @click="setTab('detail')"
+    >
+        Detail view
+    </button>
+
+    <button
+        @click="setTab('thumbnail')"
+    >
+        Thumbnail view
+    </button>
+
+    <br>
+    <br>
+
+    <label>
+        <input type=text placeholder=search v-model="searchQuery">
+    </label>
+
+    <br>
+    <br>
+
+    <div id="editing-controls">
+        <button
+            @click="clearAll"
+            id=clear-browsing-data
+        >
+            Clear video history
+        </button>
+        <button
+            @click="clearChecked"
+            id=remove-selected
+        >
+            Remove selected items
+        </button>
+
+    </div>
+
+
+
+    <ol class=day-results>
+        <li v-for="video in videos | filterBy searchQuery | orderBy sortKey sortOrders[sortKey]"
+            class="entry">
+
+            <component
+                :is="currentTab"
+                :video="video"
+                :check.sync="checked"
+            >
+            </component>
+
+        </li>
+    </ol>
+
+
+</div>
+
+<script src=vue/components/detail.html></script>
+<script src=vue/components/thumbnail.html></script>
+<script src=vue/history.js></script>
+
+</body>
+</html>
