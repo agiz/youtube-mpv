@@ -3,3 +3,4 @@ PORT = 9000
 PLAYER = 'mpv'
 OPTS = '--no-terminal'
 VIEW = 'thumbnail'
+NOTIFY_COMMAND = 'notify-send'
