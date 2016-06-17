@@ -1,19 +1,27 @@
 var vm;
 var doc;
 var mod;
+
+var thumbnail;
+var detail;
+
+var thumbnail_template;
+var detail_template;
+
+window.onload = function () {
+
 Vue.config.debug = true;
 
-var thumbnail = Vue.extend({
+thumbnail = Vue.extend({
     props: ['video', 'check'],
     template: thumbnail_template
 });
 
-var detail = Vue.extend({
+detail = Vue.extend({
     props: ['video', 'check'],
     template: detail_template
 });
 
-window.onload = function () {
 
 vm = new Vue({
     el: '#history',
@@ -110,15 +118,15 @@ vm = new Vue({
             this.currentTab = tab;
         },
 
-        httpGetAsync(theUrl, callback) {
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() {
-                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                    callback(xmlHttp.responseText);
-            }
-            xmlHttp.open("GET", theUrl, true); // true for asynchronous
-            xmlHttp.send(null);
-        },
+        // httpGetAsync(theUrl, callback) {
+        //     var xmlHttp = new XMLHttpRequest();
+        //     xmlHttp.onreadystatechange = function() {
+        //         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        //             callback(xmlHttp.responseText);
+        //     }
+        //     xmlHttp.open("GET", theUrl, true); // true for asynchronous
+        //     xmlHttp.send(null);
+        // },
 
         humanDate(d) {
           return new Date(d).toLocaleString();

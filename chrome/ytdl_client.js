@@ -7,8 +7,23 @@ var context, genericOnClick, i, len, ref, title, triggerUrl;
 triggerUrl = "http://" + HOST + ":" + PORT + "/p?i=";
 
 function play_video(url) {
-  var image = new Image();
-  image.src = url;
+  //var image = new Image();
+  //image.src = url;
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.onreadystatechange = function() {
+    console.log(xhr.readyState);
+    console.log(xhr.status);
+    if (xhr.readyState == 4) {
+      // JSON.parse does not evaluate the attacker's scripts.
+      //var resp = JSON.parse(xhr.responseText);
+      console.log(1234);
+      console.log(xhr.responseText);
+      console.log(5678);
+    }
+  }
+  xhr.send();
 }
 
 genericOnClick = function(info, tab) {

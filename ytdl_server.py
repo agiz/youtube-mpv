@@ -61,9 +61,9 @@ class MyHandler(RequestHandler):
 
         if 'g' in parsed_query:
             return self.wfile.write(
-                'var video_arr = ' + json.dumps(vdb.get_videos()) + ';' +
-                'var format_arr = ' + json.dumps(vdb.get_formats()) + ';' +
-                'var video_format_arr = ' + json.dumps(vdb.get_videos_formats()) + ';'
+                b'var video_arr = ' + json.dumps(vdb.get_videos()).encode() + b';' +
+                b'var format_arr = ' + json.dumps(vdb.get_formats()).encode() + b';' +
+                b'var video_format_arr = ' + json.dumps(vdb.get_videos_formats()).encode() + b';'
                 )
         elif 'i' in parsed_query:
             yt_url = parsed_query['i'][0]

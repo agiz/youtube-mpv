@@ -27,7 +27,7 @@ class VideoDB(object):
     )
 
     self.cur.execute(
-        "CREATE TABLE IF NOT EXISTS video_format(id INTEGER PRIMARY KEY, video_id INTEGER, format_id INTEGER, FOREIGN KEY (video_id) REFERENCES video(id), FOREIGN KEY (format_id) REFERENCES format(id))"
+      "CREATE TABLE IF NOT EXISTS video_format(id INTEGER PRIMARY KEY, video_id INTEGER, format_id INTEGER, FOREIGN KEY (video_id) REFERENCES video(id), FOREIGN KEY (format_id) REFERENCES format(id))"
     )
 
 
