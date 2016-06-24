@@ -12,6 +12,11 @@ Chrome extension and Firefox add-on that adds context menu option to play youtub
 ## Installation
 
 ### Server side:
+
+#### Arch Linux
+
+Install the AUR package, [`youtube-mpv-git`](https://aur.archlinux.org/packages/youtube-mpv-git).
+
 #### Ubuntu
 
 ```
