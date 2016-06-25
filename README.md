@@ -12,6 +12,28 @@ Chrome extension and Firefox add-on that adds context menu option to play youtub
 ## Installation
 
 ### Server side:
+
+#### Arch Linux
+
+Install the AUR package, [`youtube-mpv-git`](https://aur.archlinux.org/packages/youtube-mpv-git).
+
+#### systemd unit files
+
+In order to install the server with systemd, you will need to copy
+- `youtube-mpv.service` to `/etc/systemd/user/youtube-mpv.service`
+- `youtube-mpv@.service` to `/etc/systemd/system/youtube-mpv@.service`
+
+Then you can install it with:
+
+```
+# systemctl <enable|start> youtube-mpv@USERNAME.service
+$ systemctl --user <enable|start> youtube-mpv.service
+```
+
+**Note**: these unit files assume `ytdl_server.py` is installed at
+`/opt/youtube-mpv-git/ytdl_server.py`. You will need to amend the paths if you
+have installed it elsewhere.
+
 #### Ubuntu
 
 ```
@@ -59,7 +81,7 @@ supported, extracts video url and starts player.
 
 ## Credits
 
-[agiz](https://github.com/agiz), [dcrystalj](https://github.com/dcrystalj), [ihavenoface](https://github.com/ihavenoface)
+[agiz](https://github.com/agiz), [dcrystalj](https://github.com/dcrystalj), [ihavenoface](https://github.com/ihavenoface), [jamietanna](https://github.com/jamietanna)
 
 ## License
 
