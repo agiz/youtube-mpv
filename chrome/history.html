@@ -9,9 +9,6 @@
 
   <link rel=stylesheet href=style.css>
 
-  <script src=ytdl_config.py></script>
-  <script src=vue/vue.min.js></script>
-
 </head>
 
 <body>
@@ -35,7 +32,7 @@
     <br>
 
     <label>
-        <input type=text placeholder=search v-model="searchQuery">
+        <input type=search placeholder=search v-model="searchQuery">
     </label>
 
     <br>
@@ -75,6 +72,9 @@
 
 
 </div>
+
+<script src=ytdl_config.py></script>
+<script src=vue/vue.min.js></script>
 
 <script src=vue/components/detail.html></script>
 <script src=vue/components/thumbnail.html></script>
