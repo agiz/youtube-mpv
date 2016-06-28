@@ -92,15 +92,25 @@ class VideoDB(object):
     )
     return self.cur.fetchall()
 
-  def delete_video(self, id):
+  def delete_video(self, ids):
     self.cur.execute(
-      "DELETE FROM video_format WHERE video_id=?",
-      (id,)
+      "DELETE FROM video_format WHERE video_id IN (%s)" %
+      (','.join(ids))
     )
 
     self.cur.execute(
-      "DELETE FROM video WHERE id=?",
-      (id,)
+      "DELETE FROM video WHERE id IN (%s)" %
+      (','.join(ids))
+    )
+    self.con.commit()
+
+  def delete_all(self, ids):
+    self.cur.execute(
+      "DELETE * FROM video_format"
+    )
+
+    self.cur.execute(
+      "DELETE * FROM video"
     )
     self.con.commit()
 

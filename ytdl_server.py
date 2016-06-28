@@ -76,6 +76,9 @@ class MyHandler(RequestHandler):
                 )
         elif 'i' in parsed_query:
             yt_url = parsed_query['i'][0]
+        #
+        # here comes delete videos logic...
+        #
         else:
             return self.send_response(204)
 
