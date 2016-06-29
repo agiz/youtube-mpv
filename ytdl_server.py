@@ -64,34 +64,12 @@ class MyHandler(RequestHandler):
         """
         parsedParams = parse.urlparse(self.path)
         parsed_query = parse.parse_qs(parsedParams.query)
-        yt_url = parsed_query['i'][0]
+        video_url = parsed_query['i'][0]
 
-        data = self.match_id(yt_url)
+        data = self.match_id(video_url)
         if not data:
-            report_error("No file found", "No file found for " + yt_url)
+            report_error("No file found", "No file found for " + video_url)
             return self.send_response(400)
-
-        video_url = ''
-        if 'url' in data:
-            # Non-youtube video?
-            video_url = data['url']
-        else:
-            # youtube video
-            video_url_lo = ''
-            video_url_hi = ''
-            for format_id in data['formats']:
-                if 'format_id' in format_id and format_id['format_id'] == '22':
-                    video_url_hi = format_id['url']
-                elif 'format_id' in format_id and format_id['format_id'] == '18':
-                    video_url_lo = format_id['url']
-
-            if video_url_hi == '':
-                if video_url_lo == '':
-                    report_error('Unknown format', 'Cannot play video from' + yt_url)
-                    return self.send_response(400)
-                video_url = video_url_lo
-            else:
-                video_url = video_url_hi
 
         # Get additional options
         command = list(map(str, ytdl_config.OPTS.split(' ')))
