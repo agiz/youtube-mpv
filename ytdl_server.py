@@ -75,6 +75,7 @@ class MyHandler(RequestHandler):
         if 'url' in data:
             # Non-youtube video?
             video_url = data['url']
+            start_time = 0
         else:
             # youtube video
             video_url_lo = ''
@@ -101,7 +102,7 @@ class MyHandler(RequestHandler):
 
         # Prepend default player
         command.insert(0, ytdl_config.PLAYER)
-        
+
         # Append start time option
         if start_time and start_time != 0:
             command.append('--start=+' + str(start_time))
