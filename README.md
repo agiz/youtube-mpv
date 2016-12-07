@@ -20,13 +20,12 @@ Install the AUR package, [`youtube-mpv-git`](https://aur.archlinux.org/packages/
 #### systemd unit files
 
 In order to install the server with systemd, you will need to copy
+
 - `youtube-mpv.service` to `/etc/systemd/user/youtube-mpv.service`
-- `youtube-mpv@.service` to `/etc/systemd/system/youtube-mpv@.service`
 
 Then you can install it with:
 
 ```
-# systemctl <enable|start> youtube-mpv@USERNAME.service
 $ systemctl --user <enable|start> youtube-mpv.service
 ```
 
