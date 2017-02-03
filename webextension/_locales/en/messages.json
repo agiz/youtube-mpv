@@ -9,8 +9,13 @@
     "description": "Description of the add-on."
   },
 
-  "contextMenuItemPlayWithMpv": {
-    "message": "Play with MPV",
+  "contextMenuItemPlayPageWithMpv": {
+    "message": "Play Current Page with MPV",
     "description": "Title of context menu entry to play current URL with MPV"
+  },
+
+  "contextMenuItemPlayLinkWithMpv": {
+    "message": "Play Link with MPV",
+    "description": "Title of context menu entry to play the highlighted link with MPV"
   }
 }
