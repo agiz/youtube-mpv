@@ -1,0 +1,21 @@
+{
+  "extensionName": {
+    "message": "Play With MPV",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "Adds context menu option to play a given URL with MPV",
+    "description": "Description of the add-on."
+  },
+
+  "contextMenuItemPlayPageWithMpv": {
+    "message": "Play Current Page with MPV",
+    "description": "Title of context menu entry to play current URL with MPV"
+  },
+
+  "contextMenuItemPlayLinkWithMpv": {
+    "message": "Play Link with MPV",
+    "description": "Title of context menu entry to play the highlighted link with MPV"
+  }
+}

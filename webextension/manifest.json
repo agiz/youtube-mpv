@@ -1,0 +1,24 @@
+{
+
+  "manifest_version": 2,
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "version": "1.0",
+  "default_locale": "en",
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "permissions": [
+    "contextMenus",
+    "activeTab"
+  ],
+
+  "icons": {
+    "32": "icons/mpv-logo-32.png",
+    "48": "icons/mpv-logo-48.png",
+    "128": "icons/mpv-logo-128.png"
+  }
+
+}
