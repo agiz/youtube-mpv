@@ -8,7 +8,7 @@ triggerUrl = "http://" + HOST + ":" + PORT + "/p?i=";
 
 genericOnClick = function(info, tab) {
   var image, youtubeUrl;
-  youtubeUrl = info.linkUrl || info.pageUrl;
+  youtubeUrl = escape(info.linkUrl || info.pageUrl);
   image = new Image();
   return image.src = triggerUrl + youtubeUrl;
 };

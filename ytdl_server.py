@@ -66,55 +66,15 @@ class MyHandler(RequestHandler):
         parsed_query = parse.parse_qs(parsedParams.query)
         yt_url = parsed_query['i'][0]
 
-        data = self.match_id(yt_url)
-        if not data:
+        if not self.match_id(yt_url):
             report_error("No file found", "No file found for " + yt_url)
             return self.send_response(400)
 
-        video_url = ''
-        if 'url' in data:
-            # Non-youtube video?
-            video_url = data['url']
-            start_time = 0
-        else:
-            # youtube video
-            video_url_lo = ''
-            video_url_hi = ''
-            start_time = 0
-            for format_id in data['formats']:
-                if 'format_id' in format_id and format_id['format_id'] == '22':
-                    video_url_hi = format_id['url']
-                elif 'format_id' in format_id and format_id['format_id'] == '18':
-                    video_url_lo = format_id['url']
-
-            if video_url_hi == '':
-                if video_url_lo == '':
-                    report_error('Unknown format', 'Cannot play video from' + yt_url)
-                    return self.send_response(400)
-                video_url = video_url_lo
-            else:
-                video_url = video_url_hi
-            if 'start_time' in data and data['start_time'] is not None:
-                start_time = int(float(data['start_time']))
-
-        # Get additional options
-        command = list(map(str, ytdl_config.OPTS.split(' ')))
-
-        # Prepend default player
-        command.insert(0, ytdl_config.PLAYER)
-
-        # Append start time option
-        if start_time and start_time != 0:
-            command.append('--start=+' + str(start_time))
-
-        # Append video url
-        command.append(video_url)
-
         subprocess.Popen(
-                command,
-                stdout=FNULL,
-                stderr=FNULL
-                )
+            [ytdl_config.PLAYER, yt_url],
+            stdout=FNULL,
+            stderr=FNULL
+        )
 
         self.send_response(204)
 
