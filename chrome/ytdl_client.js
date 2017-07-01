@@ -24,3 +24,28 @@ for (i = 0, len = ref.length; i < len; i++) {
     'onclick': genericOnClick
   });
 }
+
+
+function getCurrentTabUrl(callback) {
+  var queryInfo = {
+    active: true,
+    currentWindow: true
+  };
+
+  chrome.tabs.query(queryInfo, function(tabs) {
+    var tab = tabs[0];
+    var url = tab.url;
+    callback(url);
+  });
+}
+
+
+chrome.commands.onCommand.addListener(function (command) {
+  if (command === "play") {
+    getCurrentTabUrl(function (url) {
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open( "GET", triggerUrl + escape(url),false);
+      xmlHttp.send(null);
+    });
+  }
+});

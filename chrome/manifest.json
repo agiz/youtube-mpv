@@ -7,9 +7,17 @@
       "128": "icons/mpv-logo-128.png"
    },
   "version": "0.2",
-  "permissions": ["contextMenus"],
+  "permissions": ["contextMenus", "tabs"],
   "background": {
     "scripts": ["ytdl_config.py", "ytdl_client.js"]
   },
-  "manifest_version": 2
+  "manifest_version": 2,
+  "commands": {
+    "play" : {
+        "suggested_key": {
+             "default": "Ctrl+Shift+S"
+        },
+        "description": "Play video using mpv"
+    }
+  }
 }
