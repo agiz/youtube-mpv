@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# coding: utf-8
+
 from __future__ import print_function
 
 import os
@@ -33,7 +35,8 @@ y = youtube_dl.YoutubeDL({
     'nocheckcertificate': True,
     'logger': None,
     'age_limit': None,
-    'forcejson': True
+    'forcejson': True,
+    'extract_flat': True
     })
 
 def report_error(summary, message=""):
