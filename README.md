@@ -42,6 +42,10 @@ have installed it elsewhere.
 make sure you don't run this script as root (without sudo)
 
 
+**Note: ** for playlist support add <code>ytdl-raw-options=yes-playlist=</code>
+to your <code>mpv.conf</code> file.
+
+
 ### Client side (browser):
 
 1. chrome://extensions/
