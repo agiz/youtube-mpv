@@ -6,6 +6,8 @@ from __future__ import print_function
 import os
 import subprocess
 import sys
+import shlex
+
 
 # http://stackoverflow.com/a/1660073/2257038
 if sys.version_info.major == 2:
@@ -73,8 +75,13 @@ class MyHandler(RequestHandler):
             report_error("No file found", "No file found for " + yt_url)
             return self.send_response(400)
 
+        opts = [ytdl_config.PLAYER, yt_url]
+        try:
+            opts += shlex.split(ytdl_config.OPTS)
+        except AttributeError:
+            pass
         subprocess.Popen(
-            [ytdl_config.PLAYER, yt_url],
+            opts,
             stdout=FNULL,
             stderr=FNULL
         )
