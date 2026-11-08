@@ -106,7 +106,7 @@ def serve(host, port, HandlerClass=MyHandler,
         else:
             try:
                 port = int(sys.argv[1])
-            except:
+            except ValueError:
                 host = sys.argv[1]
 
     server_address = (host, port)
